@@ -7,6 +7,8 @@ public class Holding {
     private int quantity;
 
     // Constructor
+    
+    
     public Holding(String holdingId, Asset asset, int quantity) {
         this.holdingId = holdingId;
         this.asset = asset;

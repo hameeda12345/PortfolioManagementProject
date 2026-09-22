@@ -3,6 +3,7 @@ package com.portfolioproject.model;
 public class Stock extends Asset {
 
     private double currentPrice;
+    
 
     // Constructor
     public Stock(String assetId, String assetName,
@@ -13,6 +14,7 @@ public class Stock extends Asset {
     }
 
     // Getter
+    
     public double getCurrentPrice() {
         return currentPrice;
     }
@@ -25,6 +27,7 @@ public class Stock extends Asset {
     // Method overriding
     @Override
     public double calculateCurrentValue() {
+    	
         return currentPrice;
     }
 
