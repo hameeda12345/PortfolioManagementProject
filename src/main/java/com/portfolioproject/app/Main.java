@@ -5,14 +5,18 @@ import com.portfolioproject.model.Stock;
 import com.portfolioproject.model.MutualFund;
 import com.portfolioproject.model.Holding;
 
-import java.util.ArrayList;
-import java.util.List;
+// to change Arraylist to the HashMap 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Scanner;
 
 public class Main {
 
     // Store all users
-    static List<User> users = new ArrayList<>();
+   // static List<User> users = new ArrayList<>();
+	
+	//change the users declaration
+	static Map<String , User> users = new HashMap<>();
 
     public static void main(String[] args) {
 
@@ -57,10 +61,16 @@ public class Main {
                     System.out.print("Enter Email: ");
                     String email = sc.nextLine();
 
-                    User newUser = new User(userid, name, email);
+                    // User newUser = new User(userid, name, email);
 
                     // Add user to users list
-                    users.add(newUser);
+                    //users.add(newUser);
+                    
+                    //change case 1
+                    User newUser = new User(userid,name,email);
+                    
+                    //Ad user to HaspMap
+                    users.put(userid,newUser);// userid user-->object
 
                     System.out.println("User created successfully!");
 
@@ -208,7 +218,7 @@ public class Main {
 
                         System.out.println("\n--- User Details ---");
 
-                        for (User user : users) {
+                        for (User user : users.values()) {//pehle ya .values nae hae
 
                             user.display();
 
@@ -233,7 +243,7 @@ public class Main {
 
                     System.out.println("\n--- Holdings ---");
 
-                    for (User user : users) {
+                    for (User user : users.values()) { //pehle ya values nae hae
 
                         System.out.println("\nUser ID: " + user.getUserid());
                         System.out.println("User Name: " + user.getName());
@@ -284,7 +294,7 @@ public class Main {
     // =========================================
     // FIND USER BY USER ID
     // =========================================
-    public static User findUser(String userid) {
+    /*public static User findUser(String userid) {
 
         for (User user : users) {
 
@@ -295,5 +305,11 @@ public class Main {
         }
 
         return null;
+    }
+}*/
+    
+    
+    public static User findUser(String userid) {
+    	return users.get(userid);//right side userid is we entered,left side alr existing userid ,we compare both compare equals or not
     }
 }
