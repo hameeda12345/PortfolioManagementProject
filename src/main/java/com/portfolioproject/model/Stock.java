@@ -3,18 +3,29 @@ package com.portfolioproject.model;
 public class Stock extends Asset {
 
     private double currentPrice;
-    
 
-    // Constructor
-    public Stock(String assetId, String assetName,
-                 double purchasePrice, double currentPrice) {
+    // Default constructor - required for Jackson
+    public Stock() {
+        super();
+    }
+
+    // Parameterized constructor
+    public Stock(String assetId,
+                 String assetName,
+                 double purchasePrice,
+                 double currentPrice) {
 
         super(assetId, assetName, purchasePrice);
         this.currentPrice = currentPrice;
     }
 
+    // Method overriding
+    @Override
+    public double calculateCurrentValue() {
+        return currentPrice;
+    }
+
     // Getter
-    
     public double getCurrentPrice() {
         return currentPrice;
     }
@@ -24,22 +35,6 @@ public class Stock extends Asset {
         this.currentPrice = currentPrice;
     }
 
-    // Method overriding
-    @Override
-    public double calculateCurrentValue() {
-    	
-        return currentPrice;
-    }
-
-    // Display
-    public void display() {
-        System.out.println("Asset ID: " + getAssetId());
-        System.out.println("Asset Name: " + getAssetName());
-        System.out.println("Purchase Price: " + getPurchasePrice());
-        System.out.println("Current Price: " + currentPrice);
-    }
-
-    // toString
     @Override
     public String toString() {
         return "Stock{" +

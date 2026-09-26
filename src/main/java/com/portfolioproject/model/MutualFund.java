@@ -4,8 +4,17 @@ public class MutualFund extends Asset {
 
     private double nav;
 
-    // Constructor
-    public MutualFund(String assetId, String assetName, double purchasePrice, double nav) {
+    // Default constructor - required for Jackson
+    public MutualFund() {
+        super();
+    }
+
+    // Parameterized constructor
+    public MutualFund(String assetId,
+                      String assetName,
+                      double purchasePrice,
+                      double nav) {
+
         super(assetId, assetName, purchasePrice);
         this.nav = nav;
     }
@@ -26,10 +35,7 @@ public class MutualFund extends Asset {
         this.nav = nav;
     }
 
-    // toString method
     @Override
-    
-    
     public String toString() {
         return "MutualFund{" +
                 "Asset ID='" + getAssetId() + '\'' +

@@ -1,0 +1,33 @@
+[ {
+  "userid" : "101",
+  "name" : "hami",
+  "email" : "hami@gmail.com",
+  "holdings" : [ {
+    "holdingId" : "103",
+    "asset" : {
+      "type" : "stock",
+      "assetId" : "1",
+      "assetName" : "4",
+      "purchasePrice" : 4.0,
+      "currentPrice" : 4.0
+    },
+    "quantity" : 4,
+    "currentValue" : 16.0
+  }, {
+    "holdingId" : "2",
+    "asset" : {
+      "type" : "mutualFund",
+      "assetId" : "2",
+      "assetName" : "2",
+      "purchasePrice" : 2.0,
+      "nav" : 2.0
+    },
+    "quantity" : 2,
+    "currentValue" : 4.0
+  } ]
+}, {
+  "userid" : "102",
+  "name" : "sami",
+  "email" : "sami",
+  "holdings" : [ ]
+} ]
