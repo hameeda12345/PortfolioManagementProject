@@ -1,4 +1,7 @@
+
 package com.portfolioproject.model;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 public class Holding {
 
@@ -8,13 +11,16 @@ public class Holding {
 
     // Default constructor - required for Jackson
     public Holding() {
+
     }
 
     // Parameterized constructor
     public Holding(String holdingId, Asset asset, int quantity) {
+
         this.holdingId = holdingId;
         this.asset = asset;
         this.quantity = quantity;
+
     }
 
     // Getters
@@ -44,17 +50,20 @@ public class Holding {
     }
 
     // Calculate total current value
+    @JsonIgnore
     public double getCurrentValue() {
         return asset.calculateCurrentValue() * quantity;
     }
 
     @Override
     public String toString() {
+
         return "Holding{" +
                 "Holding ID='" + holdingId + '\'' +
                 ", Asset=" + asset +
                 ", Quantity=" + quantity +
                 ", Current Value=" + getCurrentValue() +
                 '}';
+
     }
 }

@@ -36,7 +36,8 @@ public class Main {
             System.out.println("6. Sort Holdings");
             System.out.println("7. Save Data");
             System.out.println("8. Load Data");
-            System.out.println("9. Exit");
+            System.out.println("9. Update Stock prices concurrently");
+            System.out.println("10. Exit");
             System.out.println("----------------------------");
 
             System.out.print("Enter your choice: ");
@@ -404,7 +405,7 @@ public class Main {
                     );
             }
 
-        } while (choice != 9);
+        } while (choice != 10);
 
         sc.close();
     }
