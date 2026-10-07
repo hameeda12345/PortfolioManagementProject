@@ -1,13 +1,19 @@
+
 package com.portfolioproject.app;
 
 import com.portfolioproject.model.User;
-
+import com.portfolioproject.concurrent.PriceUpdateTask;
+import com.portfolioproject.model.Asset;
+import com.portfolioproject.model.Holding;
 import com.portfolioproject.model.Stock;
 import com.portfolioproject.model.MutualFund;
-import com.portfolioproject.model.Holding;
 import com.portfolioproject.service.PortfolioService;
 import com.portfolioproject.util.JsonUtil;
+import com.portfolioproject.util.JVMInfo;
 
+
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 import java.util.Scanner;
 import java.util.Comparator;
 
@@ -36,8 +42,9 @@ public class Main {
             System.out.println("6. Sort Holdings");
             System.out.println("7. Save Data");
             System.out.println("8. Load Data");
-            System.out.println("9. Update Stock prices concurrently");
-            System.out.println("10. Exit");
+            System.out.println("9. Update Stock Prices Concurrently");
+            System.out.println("10. JVM Information");
+            System.out.println("11. Exit");
             System.out.println("----------------------------");
 
             System.out.print("Enter your choice: ");
@@ -45,10 +52,6 @@ public class Main {
             sc.nextLine();
 
             switch (choice) {
-
-                // =========================================
-                // CASE 1: CREATE USER
-                // =========================================
 
                 case 1:
 
@@ -63,7 +66,6 @@ public class Main {
                     System.out.print("Enter Email: ");
                     String email = sc.nextLine();
 
-                    // Check whether user already exists
                     if (portfolioService.userExists(userid)) {
 
                         System.out.println("User already exists!");
@@ -80,10 +82,6 @@ public class Main {
                     break;
 
 
-                // =========================================
-                // CASE 2: ADD STOCK HOLDING
-                // =========================================
-
                 case 2:
 
                     System.out.println("\n--- Add Stock Holding ---");
@@ -91,8 +89,8 @@ public class Main {
                     System.out.print("Enter User ID: ");
                     String stockUserId = sc.nextLine();
 
-                    // Get user from HashMap through service
-                    User stockUser = portfolioService.getUser(stockUserId);
+                    User stockUser =
+                            portfolioService.getUser(stockUserId);
 
                     if (stockUser == null) {
 
@@ -120,7 +118,6 @@ public class Main {
 
                     sc.nextLine();
 
-                    // Create Stock object
                     Stock stock = new Stock(
                             stockId,
                             stockName,
@@ -128,14 +125,12 @@ public class Main {
                             currentPrice
                     );
 
-                    // Create Holding object
                     Holding stockHolding = new Holding(
                             stockHoldingId,
                             stock,
                             quantity
                     );
 
-                    // Add holding to user
                     stockUser.addHolding(stockHolding);
 
                     System.out.println(
@@ -145,19 +140,17 @@ public class Main {
                     break;
 
 
-                // =========================================
-                // CASE 3: ADD MUTUAL FUND HOLDING
-                // =========================================
-
                 case 3:
 
-                    System.out.println("\n--- Add Mutual Fund Holding ---");
+                    System.out.println(
+                            "\n--- Add Mutual Fund Holding ---"
+                    );
 
                     System.out.print("Enter User ID: ");
                     String mfUserId = sc.nextLine();
 
-                    // Get user from HashMap through service
-                    User mfUser = portfolioService.getUser(mfUserId);
+                    User mfUser =
+                            portfolioService.getUser(mfUserId);
 
                     if (mfUser == null) {
 
@@ -185,7 +178,6 @@ public class Main {
 
                     sc.nextLine();
 
-                    // Create MutualFund object
                     MutualFund mutualFund = new MutualFund(
                             mfId,
                             mfName,
@@ -193,14 +185,12 @@ public class Main {
                             nav
                     );
 
-                    // Create Holding object
                     Holding mfHolding = new Holding(
                             mfHoldingId,
                             mutualFund,
                             mfQuantity
                     );
 
-                    // Add holding to user
                     mfUser.addHolding(mfHolding);
 
                     System.out.println(
@@ -210,21 +200,22 @@ public class Main {
                     break;
 
 
-                // =========================================
-                // CASE 4: DISPLAY USER
-                // =========================================
-
                 case 4:
 
-                    System.out.println("\n--- Display All Users ---");
+                    System.out.println(
+                            "\n--- Display All Users ---"
+                    );
 
                     boolean found = false;
 
-                    for (User user1 : portfolioService.getAllUsers()) {
+                    for (User user1 :
+                            portfolioService.getAllUsers()) {
 
                         user1.display();
 
-                        System.out.println("----------------------------");
+                        System.out.println(
+                                "----------------------------"
+                        );
 
                         found = true;
                     }
@@ -235,9 +226,6 @@ public class Main {
 
                     break;
 
-                // =========================================
-                // CASE 5: DISPLAY HOLDINGS
-                // =========================================
 
                 case 5:
 
@@ -245,17 +233,19 @@ public class Main {
 
                     boolean userFound = false;
 
-                    // Get all users from HashMap
-                    for (User user1 : portfolioService.getAllUsers()) {
+                    for (User user1 :
+                            portfolioService.getAllUsers()) {
 
                         userFound = true;
 
                         System.out.println(
-                                "\nUser ID: " + user1.getUserid()
+                                "\nUser ID: "
+                                        + user1.getUserid()
                         );
 
                         System.out.println(
-                                "User Name: " + user1.getName()
+                                "User Name: "
+                                        + user1.getName()
                         );
 
                         if (user1.getHoldings().isEmpty()) {
@@ -286,16 +276,17 @@ public class Main {
                     break;
 
 
-                // =========================================
-                // CASE 6: SORT HOLDINGS
-                // =========================================
-
                 case 6:
 
                     System.out.println("\n--- Sort Holdings ---");
 
-                    System.out.println("1. Sort by Holding ID");
-                    System.out.println("2. Sort by Quantity");
+                    System.out.println(
+                            "1. Sort by Holding ID"
+                    );
+
+                    System.out.println(
+                            "2. Sort by Quantity"
+                    );
 
                     System.out.print("Enter your choice: ");
                     int sortChoice = sc.nextInt();
@@ -304,12 +295,10 @@ public class Main {
 
                     boolean sorted = false;
 
-                    // Get all users from HashMap
                     for (User user1 :
                             portfolioService.getAllUsers()) {
 
                         if (user1.getHoldings().isEmpty()) {
-
                             continue;
                         }
 
@@ -353,9 +342,6 @@ public class Main {
                     break;
 
 
-                // =========================================
-                // CASE 7: Save Data
-                // =========================================
                 case 7:
 
                     System.out.println("\n--- Save Data ---");
@@ -365,48 +351,98 @@ public class Main {
                     );
 
                     break;
-                 // =========================================
-                // CASE 8: Load Data
-                // =========================================
+
+
                 case 8:
 
                     System.out.println("\n--- Load Data ---");
 
-                    User[] loadedUsers = JsonUtil.loadUsers();
+                    User[] loadedUsers =
+                            JsonUtil.loadUsers();
 
                     portfolioService.loadUsers(
-                            java.util.Arrays.asList(loadedUsers)
+                            java.util.Arrays.asList(
+                                    loadedUsers
+                            )
                     );
 
-                    System.out.println("Data loaded successfully.");
+                    System.out.println(
+                            "Data loaded successfully."
+                    );
 
                     break;
-                 // =========================================
-                 // CASE 9: Exit
-                 // =========================================
+
+
                 case 9:
 
                     System.out.println(
-                            "\nThank you for using " +
-                            "Stock Portfolio Management System."
+                            "\n--- Update Stock Prices Concurrently ---"
                     );
+
+                    ExecutorService executor =
+                            Executors.newFixedThreadPool(4);
+
+                    for (User user :
+                            portfolioService.getAllUsers()) {
+
+                        for (Holding holding :
+                                user.getHoldings()) {
+
+                            Asset asset = holding.getAsset();
+
+                            if (asset instanceof Stock) {
+
+                                Stock stockForUpdate =
+                                        (Stock) asset;
+
+                                PriceUpdateTask task =
+                                        new PriceUpdateTask(
+                                                stockForUpdate
+                                        );
+
+                                executor.submit(task);
+
+                                System.out.println(
+                                        "Task submitted for: "
+                                        + stockForUpdate.getAssetName()
+                                );
+                            }
+                        }
+                    }
+
+                    executor.shutdown();
 
                     break;
 
 
-                // =========================================
-                // DEFAULT
-                // =========================================
+                case 10:
+
+                    JVMInfo.displayJVMInfo();
+
+                    break;
+
+
+                case 11:
+
+                    System.out.println(
+                            "\nThank you for using "
+                                    + "Stock Portfolio Management System."
+                    );
+
+                    break;
+
 
                 default:
 
                     System.out.println(
-                            "Invalid choice. Please enter 1 to 7."
+                            "Invalid choice. Please enter 1 to 11."
                     );
             }
 
-        } while (choice != 10);
+        } while (choice != 11);
 
         sc.close();
     }
 }
+
+
