@@ -1,0 +1,9 @@
+2026-10-14 12:53:16 INFO  com.portfolioproject.app.Main - Portfolio Management System started
+2026-10-14 12:55:53 INFO  com.portfolioproject.app.Main - User created successfully: 1
+2026-10-16 11:15:12 INFO  com.portfolioproject.app.Main - Portfolio Management System started
+2026-10-16 11:15:16 INFO  com.portfolioproject.app.Main - Portfolio Management System started
+2026-10-16 11:15:53 INFO  com.portfolioproject.app.Main - User created successfully: 101
+2026-10-16 11:16:44 INFO  com.portfolioproject.app.Main - User created successfully: 102
+2026-10-16 11:19:48 WARN  com.portfolioproject.app.Main - Attempt to create an existing user: 101
+2026-10-16 21:28:45 INFO  com.portfolioproject.app.Main - Portfolio Management System started
+2026-10-16 21:29:00 INFO  com.portfolioproject.app.Main - User created successfully: 101
