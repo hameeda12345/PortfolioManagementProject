@@ -2,9 +2,11 @@
 package com.hospitalmanagement.service;
 
 import java.util.ArrayList;
+
 import java.util.List;
 
 import com.hospitalmanagement.model.Appointment;
+
 
 public class AppointmentService {
 
@@ -57,3 +59,6 @@ public class AppointmentService {
         this.appointments = appointments;
     }
 }
+
+
+

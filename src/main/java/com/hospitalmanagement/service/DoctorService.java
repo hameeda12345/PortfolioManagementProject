@@ -9,9 +9,7 @@ import com.hospitalmanagement.model.Doctor;
 public class DoctorService {
 
     private Map<Integer, Doctor> doctors = new HashMap<>();
-
     private JsonFileService jsonService = new JsonFileService();
-
     private final String FILE_NAME = "data/doctors.json";
 
     // Add doctor

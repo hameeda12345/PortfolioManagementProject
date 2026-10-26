@@ -1,4 +1,3 @@
-
 package com.hospitalmanagement.app;
 
 import java.io.File;
@@ -251,4 +250,3 @@ public class Main {
         sc.close();
     }
 }
-
