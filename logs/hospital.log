@@ -1,0 +1,3 @@
+2026-11-06 00:39:08 INFO  c.hospitalmanagement.app.LogginTest - Hospital Management Logging Test Started
+2026-11-06 00:39:08 WARN  c.hospitalmanagement.app.LogginTest - This is a warning test
+2026-11-06 00:39:08 ERROR c.hospitalmanagement.app.LogginTest - This is an error test

@@ -8,55 +8,84 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 public class JsonFileService {
 
-    private final ObjectMapper mapper;
+    private static final Logger logger =
+            LoggerFactory.getLogger(JsonFileService.class);
+
+    private ObjectMapper mapper;
 
     public JsonFileService() {
         mapper = new ObjectMapper();
         mapper.enable(SerializationFeature.INDENT_OUTPUT);
+
+        logger.info("JSON File Service initialized.");
     }
 
+    // Save Data
     public void saveData(Object data, String fileName) {
+
         try {
-            File file = new File(fileName);
+            mapper.writeValue(new File(fileName), data);
 
-            File parent = file.getParentFile();
-            if (parent != null) {
-                parent.mkdirs();
-            }
+            logger.info("Data saved successfully to file: {}",
+                    fileName);
 
-            mapper.writeValue(file, data);
-
-            System.out.println(
-                    "Data saved successfully to "
-                    + file.getAbsolutePath());
+            System.out.println("Data saved successfully!");
 
         } catch (IOException e) {
-            System.out.println(
-                    "Error while saving data: " + e.getMessage());
+
+            logger.error("Error saving data to file: {}",
+                    fileName, e);
+
+            System.out.println("Error saving data: " + e.getMessage());
         }
     }
 
+    // Load Data using Class
     public <T> T loadData(String fileName, Class<T> type) {
+
         try {
-            return mapper.readValue(new File(fileName), type);
+            T data = mapper.readValue(new File(fileName), type);
+
+            logger.info("Data loaded successfully from file: {}",
+                    fileName);
+
+            return data;
+
         } catch (IOException e) {
-            System.out.println(
-                    "Error while loading data: " + e.getMessage());
+
+            logger.error("Error loading data from file: {}",
+                    fileName, e);
+
+            System.out.println("Error loading data: " + e.getMessage());
+
             return null;
         }
     }
 
-    public <T> T loadData(
-            String fileName, TypeReference<T> type) {
+    // Load Data using TypeReference
+    public <T> T loadData(String fileName, TypeReference<T> type) {
+
         try {
-            return mapper.readValue(new File(fileName), type);
+            T data = mapper.readValue(new File(fileName), type);
+
+            logger.info("Data loaded successfully from file: {}",
+                    fileName);
+
+            return data;
+
         } catch (IOException e) {
-            System.out.println(
-                    "Error while loading data: " + e.getMessage());
+
+            logger.error("Error loading data from file: {}",
+                    fileName, e);
+
+            System.out.println("Error loading data: " + e.getMessage());
+
             return null;
         }
     }
 }
-

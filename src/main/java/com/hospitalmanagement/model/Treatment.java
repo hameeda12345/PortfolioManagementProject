@@ -1,4 +1,7 @@
+
 package com.hospitalmanagement.model;
+
+import java.util.Objects;
 
 public class Treatment {
 
@@ -8,9 +11,11 @@ public class Treatment {
     private String description;
     private double cost;
 
+    // Default constructor
     public Treatment() {
     }
 
+    // Parameterized constructor
     public Treatment(int treatmentId, int patientId,
                      int doctorId, String description,
                      double cost) {
@@ -22,6 +27,7 @@ public class Treatment {
         this.cost = cost;
     }
 
+    // Getters and Setters
     public int getTreatmentId() {
         return treatmentId;
     }
@@ -62,6 +68,7 @@ public class Treatment {
         this.cost = cost;
     }
 
+    // toString method
     @Override
     public String toString() {
         return "Treatment{" +
@@ -71,5 +78,21 @@ public class Treatment {
                 ", description='" + description + '\'' +
                 ", cost=" + cost +
                 '}';
+    }
+
+    // equals method
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) return true;
+        if (!(obj instanceof Treatment)) return false;
+
+        Treatment other = (Treatment) obj;
+        return treatmentId == other.treatmentId;
+    }
+
+    // hashCode method
+    @Override
+    public int hashCode() {
+        return Objects.hash(treatmentId);
     }
 }
